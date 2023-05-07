@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h4 class="m-4">your left to do task</h4>
+<a href="{% url 'task:new_task' %}">add new task</a>
+{% for task in object_list %}
+    <div class="task_container">
+        <p>{{ task.title }}</p>
+        <p>{{ task.description }}</p><hr>
+        <a href="#" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Complete</a>
+        <a href="{% url 'task:delete_task' task.id %}" class="btn btn-danger btn-lg" role="button" aria-pressed="true">Delete</a>
+    </div><br>
+{% endfor %}
+{% endblock content%}
