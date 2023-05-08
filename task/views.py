@@ -21,3 +21,11 @@ def delete_task(request,pk):
     task_model.delete()
     return redirect('task:TaskClassView')
 
+def edit_task(request,pk):
+    task_model = Task.objects.get(id=pk)
+    form = Task_form(request.POST or None, instance=task_model)
+    if request.method == 'POST':
+        form.save()
+        return redirect('task:TaskClassView')
+    context={'form':form}
+    return render(request,'form.html',context)

@@ -1,5 +1,6 @@
 mediafiles/
 .env
+superuser.txt
 # Django #
 *.log
 *.pot

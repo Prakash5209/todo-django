@@ -3,8 +3,17 @@ body{
     margin:0;
     box-sizing:border-box;
 }
+.col ol{
+    padding:0px;
+    margin:0px;
+    padding:5px 0 0 5px;
+}
+.col ol li{
+    list-style: none;
+    line-height: 5px;
+}
 .task_container{
-    border: 1px solid rgb(137, 137, 137);
-    border-radius:10px;
-    padding:10px;
+    background-color:#eee;
+    border-radius: 10px;
+    margin-bottom: 5px;
 }
