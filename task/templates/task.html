@@ -2,7 +2,8 @@
 {% block content %}
 <h4 class="m-4">your left to do task</h4>
 <a href="{% url 'task:new_task' %}">add new task</a>
-{% for task in object_list %}
+<div class="task_body">
+    {% for task in object_list %}
     <div class="task_container">
         <div class="row">
             <div class="col">
@@ -19,5 +20,6 @@
             </div>
         </div>
     </div>
-{% endfor %}
+    {% endfor %}
+</div>
 {% endblock content%}
