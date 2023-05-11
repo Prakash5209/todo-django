@@ -2,6 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render,redirect
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
 
 from task.models import Task
 from task.forms import Task_form
@@ -18,6 +19,7 @@ def TaskClassView(request):
     context = {'object_list':vari}
     return render(request,'task.html',context)
     
+@login_required
 def new_task(request):
     form = Task_form(request.POST or None)
     if form.is_valid():
