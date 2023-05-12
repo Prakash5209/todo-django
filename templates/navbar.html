@@ -10,6 +10,12 @@
             <a class="nav-link active" aria-current="page" href="{% url 'task:TaskClassView' %}">Task</a>
           </li>
           {% if request.user.is_authenticated %}
+          <form method="GET" action="" class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" placeholder="search" name="search">
+              <button type="submit" class="btn btn-default border">submit</button>
+            </div>
+          </form>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'useraccount:userlogout' %}">Logout</a>
             </li>
@@ -20,7 +26,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'useraccount:usersignup' %}">Signup</a>
             </li>
-
           {% endif %}
           <li class="nav-item">
             <a class="nav-link ">{{request.user}}</a>
