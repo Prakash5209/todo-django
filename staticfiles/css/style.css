@@ -11,6 +11,7 @@ body{
 .col ol li{
     list-style: none;
     line-height: 5px;
+    padding:5px;
 }
 .task_container{
     background-color:#eee;

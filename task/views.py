@@ -1,5 +1,3 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.shortcuts import render,redirect
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
@@ -15,14 +13,15 @@ from task.forms import Task_form
     
 @login_required
 def TaskClassView(request):
-    # vari = Task.objects.all()
+    total_task = len(Task.objects.filter(user = request.user))
+    # print(total_task)
     vari = Task.objects.filter(user = request.user) if request.user.is_authenticated else None
     form = Task_form(request.POST or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
-    context = {'object_list':vari,'form':form}
+    context = {'object_list':vari,'form':form,'total_task':total_task}
     return render(request,'task.html',context)
     
 # @login_required
