@@ -1,25 +1,38 @@
 {% extends 'base.html' %}
 {% block content %}
 <h4 class="m-4">your left to do task</h4>
-<a href="{% url 'task:new_task' %}" class="btn btn-primary">add new task</a><br><br>
-<div class="task_body">
-    {% for task in object_list %}
-    <div class="task_container">
-        <div class="row">
-            <div class="col">
-                <ol>
-                    <li><p><u>{{ task.title }}</u></p></li>
-                    <li><p>{{ task.description }}</p></li>
-                </ol>
+{% comment %} <a href="{% url 'task:new_task' %}" class="btn btn-primary">add new task</a><br><br> {% endcomment %}
+<div class="">
+    <div class="col-md-6">
+        <form method="post" action="">
+            {% csrf_token %}
+            {% comment %} {{ form.as_p }} {% endcomment %}
+            <input type="text" name="title" class="form-control">
+            <textarea type="text" name="description" class="form-control" rows="3"></textarea>
+            <input type="submit" value="submit">
+        </form>
+    </div><hr>
+    <div class="col-md-6">
+        <div class="task_body">
+            {% for task in object_list %}
+            <div class="task_container">
+                <div class="row">
+                    <div class="col">
+                        <ol>
+                            <li><p><u>{{ task.title }}</u></p></li>
+                            <li><p>{{ task.description }}</p></li>
+                        </ol>
+                    </div>
+                    <div class="col-md-auto">
+                        {% comment %} <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>
+                        <a href="{% url 'task:delete_task' task.id %}" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Delete</a> {% endcomment %}
+                        <a href="{% url 'task:edit_task' task.id %}">Edit</a>
+                        <a href="{% url 'task:delete_task' task.id %}">Delete</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-auto">
-                {% comment %} <a href="#" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Edit</a>
-                <a href="{% url 'task:delete_task' task.id %}" class="btn btn-danger btn-sm" role="button" aria-pressed="true">Delete</a> {% endcomment %}
-                <a href="{% url 'task:edit_task' task.id %}">Edit</a>
-                <a href="{% url 'task:delete_task' task.id %}">Delete</a>
-            </div>
+            {% endfor %}
         </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock content%}

@@ -13,22 +13,28 @@ from task.forms import Task_form
     # def get_queryset(self,**kwargs):
     #     return super().get_queryset(**kwargs).filter(user = self.request.user)
     
+@login_required
 def TaskClassView(request):
     # vari = Task.objects.all()
     vari = Task.objects.filter(user = request.user) if request.user.is_authenticated else None
-    context = {'object_list':vari}
-    return render(request,'task.html',context)
-    
-@login_required
-def new_task(request):
     form = Task_form(request.POST or None)
     if form.is_valid():
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
-        return redirect('task:TaskClassView')
-    context={'form':form}
-    return render(request,'form.html',context)
+    context = {'object_list':vari,'form':form}
+    return render(request,'task.html',context)
+    
+# @login_required
+# def new_task(request):
+#     form = Task_form(request.POST or None)
+#     if form.is_valid():
+#         obj = form.save(commit=False)
+#         obj.user = request.user
+#         obj.save()
+#         return redirect('task:TaskClassView')
+#     context={'form':form}
+#     return render(request,'form.html',context)
 
 def delete_task(request,pk):
     task_model=Task.objects.get(id = pk)
