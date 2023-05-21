@@ -5,9 +5,11 @@ from task.models import Task
 class Task_form(forms.ModelForm):
     class Meta:
         model=Task
-        fields=('title','description',)
-        widgets = {
-            'title':forms.TextInput(attrs={'class':'form-control'}),
-            'description':forms.TextInput(attrs={'class':'form-control'}),
-        }
+        fields=('title','description')
+        
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['description'].widget.attrs.update({'rows':3})
+        
+        
         

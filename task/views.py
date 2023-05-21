@@ -21,6 +21,7 @@ def TaskClassView(request):
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
+        return redirect('task:TaskClassView')
     context = {'object_list':vari,'form':form,'total_task':total_task}
     return render(request,'task.html',context)
     
@@ -47,4 +48,4 @@ def edit_task(request,pk):
         form.save()
         return redirect('task:TaskClassView')
     context={'form':form}
-    return render(request,'form.html',context)
+    return render(request,'task.html',context)
