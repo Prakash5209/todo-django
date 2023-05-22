@@ -7,6 +7,10 @@ class CustomUserCreationForm(UserCreationForm):
         model=CustomUserModel
         fields=('email',)
         
+    def __init__(self,*args,**kwargs):
+        super().__init__(*args,**kwargs)
+        self.fields['email'].widget.attrs.update({'class':'form-control'})
+                
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model=CustomUserModel
