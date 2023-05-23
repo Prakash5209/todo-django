@@ -9,7 +9,7 @@
                 {% csrf_token %}
                 {{ form }}
                 <br><input type="submit" class="btn btn-primary" value="submit">
-            </form>"
+            </form>
         </div>
 
         <div class="col-md-8">
@@ -26,7 +26,7 @@
                         </div>
                         <div class="">
                             <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">edit</a>
-                            <a class="btn btn-secondary btn-sm" href="{% url 'task:delete_task' task.id %}">cancel</a>
+                            <a class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" href="{% url 'task:delete_task' task.id %}">cancel</a>
                         </div>
                     </li>
                     {% endfor %}
@@ -34,6 +34,34 @@
         </div>
     </div>
 </div>
+  
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title text-center">Delete task</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">Are you sure you want to delete this post ?
+          <form method="post" action=".">
+            {% csrf_token %}
+            <input type="hidden" value="yes">
+          </form>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  
 
 {% endblock content%}
 
