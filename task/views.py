@@ -42,6 +42,7 @@ def delete_task(request,pk):
     task_model=Task.objects.get(id = pk)
     if request.method == "POST":
         task_model.delete()
+        messages.add_message(request,messages.INFO,'task deleted or canceled')
         return redirect('task:TaskClassView')
     return render(request,'delete_task.html',{'task_model':task_model})
     
@@ -50,6 +51,7 @@ def edit_task(request,pk):
     form = Task_form(request.POST or None, instance=task_model)
     if request.method == 'POST':
         form.save()
+        messages.add_message(request,messages.SUCCESS,'task updated')
         return redirect('task:TaskClassView')
     context={'form':form}
     return render(request,'task.html',context)
