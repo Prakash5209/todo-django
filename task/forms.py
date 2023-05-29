@@ -17,7 +17,7 @@ class Task_form(forms.ModelForm):
             if field=='description':
                 self.fields[field].widget.attrs.update({'rows':5})
             self.fields[field].widget.attrs.update({'placeholder':f'{field}','class':'form-control'})
-            print(type(field))
+            # print(type(field))
             
         
         

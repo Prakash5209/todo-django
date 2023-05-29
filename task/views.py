@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from task.models import Task
 from task.forms import Task_form
@@ -21,6 +22,7 @@ def TaskClassView(request):
         obj = form.save(commit=False)
         obj.user = request.user
         obj.save()
+        messages.add_message(request,messages.SUCCESS,'new task added')
         return redirect('task:TaskClassView')
     context = {'object_list':vari,'form':form,'total_task':total_task}
     return render(request,'task.html',context)
@@ -38,9 +40,11 @@ def TaskClassView(request):
 
 def delete_task(request,pk):
     task_model=Task.objects.get(id = pk)
-    task_model.delete()
-    return redirect('task:TaskClassView')
-
+    if request.method == "POST":
+        task_model.delete()
+        return redirect('task:TaskClassView')
+    return render(request,'delete_task.html',{'task_model':task_model})
+    
 def edit_task(request,pk):
     task_model = Task.objects.get(id=pk)
     form = Task_form(request.POST or None, instance=task_model)

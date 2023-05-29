@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="messages-conatiner bg-success">
+    {% if messages %}
+        {% for message in messages %}
+        <p class="bg-success p-3 text-center text-capitalize">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+{% comment %} <p class="bg-primary p-3 text-center text-capitalize text-muted ">message</p> {% endcomment %}
 <div class="container-fluid">
     <div class="row px-4">
         <div class="col-md-4 py-5">
@@ -11,57 +19,30 @@
                 <br><input type="submit" class="btn btn-primary" value="submit">
             </form>
         </div>
-
         <div class="col-md-8">
             <div class="py-4 px-3 d-flex justify-content-around">
                 <p class="h5">left to do task: {{total_task}}</p>
                 <p class="h5">completed task: {{total_task}}</p>
             </div>
             <ol class="list-group list-group-flush" type="1">
-                    {% for task in object_list %}
+                {% for task in object_list %}
                     <li href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="">
-                            <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+                            {% comment %} <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox"> {% endcomment %}
                             <label>{{task.title}}<br>{{task.description}}</label>
                         </div>
                         <div class="">
+                            <a class="btn btn-success btn-sm" href="#">Complete</a>
                             <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">edit</a>
-                            <a class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#myModal" href="{% url 'task:delete_task' task.id %}">cancel</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'task:delete_task' task.id %}">cancel</a>
                         </div>
                     </li>
-                    {% endfor %}
+                {% endfor %}
             </ol>
         </div>
     </div>
 </div>
   
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-  
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title text-center">Delete task</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-  
-        <!-- Modal body -->
-        <div class="modal-body">Are you sure you want to delete this post ?
-          <form method="post" action=".">
-            {% csrf_token %}
-            <input type="hidden" value="yes">
-          </form>
-        </div>
-  
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        </div>
-  
-      </div>
-    </div>
-  </div>
-  
+
 
 {% endblock content%}
-
