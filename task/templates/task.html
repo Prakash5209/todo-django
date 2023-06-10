@@ -32,9 +32,9 @@
                             <label>{{task.title}}<br>{{task.description}}</label>
                         </div>
                         <div class="">
-                            <a class="btn btn-success btn-sm" href="#">Complete</a>
-                            <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">edit</a>
-                            <a class="btn btn-danger btn-sm" href="{% url 'task:delete_task' task.id %}">cancel</a>
+                            <a class="btn btn-success btn-sm" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
+                            <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{% url 'task:delete_task' task.id %}">Delete</a>
                         </div>
                     </li>
                 {% endfor %}

@@ -16,8 +16,9 @@ class Task(TimeStampModel):
     user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,blank=True,null=True)
     title=models.CharField(max_length=100)
     description=models.TextField()
+    is_completed=models.BooleanField(default=True)
     # status = models.CharField(max_length = 255,choices = Status.choices,default="Status.NOF_FINISHED")
     
     def __str__(self):
-        return self.user
+        return self.title
     

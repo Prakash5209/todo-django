@@ -15,7 +15,6 @@ from task.forms import Task_form
 @login_required
 def TaskClassView(request):
     total_task = len(Task.objects.filter(user = request.user))
-    # print(total_task)
     vari = Task.objects.filter(user = request.user) if request.user.is_authenticated else None
     form = Task_form(request.POST or None)
     if form.is_valid():
@@ -55,3 +54,14 @@ def edit_task(request,pk):
         return redirect('task:TaskClassView')
     context={'form':form}
     return render(request,'task.html',context)
+
+def toggle(request,pk):
+    task_model = Task.objects.get(id = pk)
+    if task_model.is_completed == True:
+        task_model.is_completed = False
+        task_model.save()
+        return redirect('task:TaskClassView')
+    else:
+        task_model.is_completed = True
+        task_model.save()
+        return redirect('task:TaskClassView')
