@@ -8,7 +8,9 @@
       <li class="nav-item"><a class="nav-link" href="{% url 'useraccount:userlogin' %}">Login</a></li>
       <li class="nav-item"><a class="nav-link" href="{% url 'useraccount:usersignup' %}">Signup</a></li>
       {% endif %}
+      {% if request.user.is_authenticated %}
       <li class="nav-item"><a class="nav-link" href="">{{ request.user }}</a></li>
+      {% endif %}
   </ul>
 </nav>
 
