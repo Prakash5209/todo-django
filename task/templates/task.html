@@ -26,14 +26,23 @@
             </div>
             <ol class="list-group list-group-flush" type="1">
                 {% for task in object_list %}
-                    <li href="#" class="list-group-item list-group-item-action d-flex justify-content-between">
+                    <li href="#" {% if task.is_completed == True %}style="background-color: #a3ffb5;color: #5f5f5f ;"{% else %}style="background-color: #78b2ff;"{% endif %} class="list-group-item list-group-item-action d-flex justify-content-between">
                         <div class="">
                             {% comment %} <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox"> {% endcomment %}
-                            <label>{{task.title}}<br>{{task.description}}</label>
+                            {% if task.is_completed == True %}
+                                <label style="text-decoration:line-through;">{{task.title}}<br>{{task.description}}</label>
+                            {% else %}  
+                                <label>{{task.title}}<br>{{task.description}}</label>
+                            {% endif %}
                         </div>
                         <div class="">
-                            <a class="btn btn-success btn-sm" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
-                            <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                            {% if task.is_completed == True %}
+                                <a class="btn btn-success btn-sm {% if task.is_completed == True %}disabled{% endif %}" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
+                                <a class="btn btn-secondary btn-sm {% if task.is_completed == True %}disabled{% endif %}" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                            {% else %}
+                                <a class="btn btn-success btn-sm" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
+                                <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                            {% endif %}
                             <a class="btn btn-danger btn-sm" href="{% url 'task:delete_task' task.id %}">Delete</a>
                         </div>
                     </li>

@@ -6,7 +6,7 @@ class TimeStampModel(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
     
     class Meta:
-        ordering = ['-modified_at' ,'-created_at']
+        ordering = ['-created_at']
         
 # class Status(models.TextChoices):
 #     NOT_FINISHED = 'incomplete','INCOMPLETED'
