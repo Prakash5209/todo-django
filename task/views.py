@@ -15,6 +15,8 @@ from task.forms import Task_form
 @login_required
 def TaskClassView(request):
     total_task = len(Task.objects.filter(user = request.user))
+    completed_task = len(Task.objects.filter(is_completed = True, user = request.user))
+    print(completed_task)
     vari = Task.objects.filter(user = request.user) if request.user.is_authenticated else None
     form = Task_form(request.POST or None)
     if form.is_valid():
@@ -23,7 +25,7 @@ def TaskClassView(request):
         obj.save()
         messages.add_message(request,messages.SUCCESS,'new task added')
         return redirect('task:TaskClassView')
-    context = {'object_list':vari,'form':form,'total_task':total_task}
+    context = {'object_list':vari,'form':form,'total_task':total_task,'completed_task':completed_task}
     return render(request,'task.html',context)
     
 # @login_required
