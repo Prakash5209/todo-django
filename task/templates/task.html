@@ -21,7 +21,8 @@
         </div>
         <div class="col-md-8">
             <div class="py-4 px-3 d-flex justify-content-around">
-                <p class="h5">left to do task: {{total_task}}</p>
+                <p class="h5">total task: {{total_task}}</p>
+                <p class="h5">left to do task: {{left_to_do_task}}</p>
                 <p class="h5">completed task: {{completed_task}}</p>
             </div>
             <ol class="list-group list-group-flush" type="1">
@@ -38,10 +39,10 @@
                         <div class="">
                             {% if task.is_completed == True %}
                                 <a class="btn btn-success btn-sm {% if task.is_completed == True %}disabled{% endif %}" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
-                                <a class="btn btn-secondary btn-sm {% if task.is_completed == True %}disabled{% endif %}" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                                <a class="btn btn-primary btn-sm {% if task.is_completed == True %}disabled{% endif %}" href="{% url 'task:edit_task' task.id %}">Edit</a>
                             {% else %}
                                 <a class="btn btn-success btn-sm" href="{% url 'task:toggle' task.id%}">{% if task.is_completed == False %} incomplete {% else %} completed {% endif %}</a>
-                                <a class="btn btn-secondary btn-sm" href="{% url 'task:edit_task' task.id %}">Edit</a>
+                                <a class="btn btn-primary btn-sm" href="{% url 'task:edit_task' task.id %}">Edit</a>
                             {% endif %}
                             <a class="btn btn-danger btn-sm" href="{% url 'task:delete_task' task.id %}">Delete</a>
                         </div>
