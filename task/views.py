@@ -43,7 +43,7 @@ def delete_task(request,pk):
     task_model=Task.objects.get(id = pk,user = request.user)
     if request.method == "POST":
         task_model.delete()
-        messages.add_message(request,messages.INFO,'task deleted or canceled')
+        messages.add_message(request,messages.INFO,'task deleted')
         return redirect('task:TaskClassView')
     return render(request,'delete_task.html',{'task_model':task_model})
     
